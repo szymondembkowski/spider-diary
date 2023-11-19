@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<title>Registration Confirmation</title>
+	<link rel="stylesheet" href="/css/style_reg.css">
+
+</head>
+
+<body>
+
+<div class="page3">
+	<div class="container">
+		<div class="tekst2">
+			<h1>Pomyślna rejestracja!</h1>
+			<p th:text="'Witaj ' + ${webUser.userName}"></p>
+			<p>Nie zostało nic więcej jak kliknięcie tego guzika!</p>
+			<a th:href="@{/login/}" class="btn btn-primary mt-3" role="button" aria-pressed="true">Zaloguj się</a>
+
+		</div>
+
+	</div>
+</div>
+</div>
+
+</body>
+
+</html>

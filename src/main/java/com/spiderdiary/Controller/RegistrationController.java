@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/register")
 public class RegistrationController {
 
     private Logger logger = Logger.getLogger(getClass().getName());
@@ -36,15 +35,15 @@ public class RegistrationController {
         dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
     }
 
-    @GetMapping("/showRegistrationForm")
-    public String showMyLoginPage(Model theModel) {
+    @GetMapping("/")
+    public String showLandingPage(Model theModel) {
 
         theModel.addAttribute("webUser", new WebUser());
 
-        return "register/registration-form";
+        return "landing";
     }
 
-    @PostMapping("/processRegistrationForm")
+    @PostMapping("/")
     public String processRegistrationForm(
             @Valid @ModelAttribute("webUser") WebUser theWebUser,
             BindingResult theBindingResult,
@@ -54,28 +53,25 @@ public class RegistrationController {
         logger.info("Processing registration form for: " + userName);
 
         // form validation
-        if (theBindingResult.hasErrors()){
-            return "register/registration-form";
+        if (theBindingResult.hasErrors()) {
+            return "regError";
         }
 
         // check the database if user already exists
         User existing = userService.findByUserName(userName);
-        if (existing != null){
-            theModel.addAttribute("webUser", new WebUser());
+        if (existing != null) {
             theModel.addAttribute("registrationError", "User name already exists.");
-
-            logger.warning("User name already exists.");
-            return "register/registration-form";
+            return "regError";
         }
 
-        // create user account and store in the databse
+        // create user account and store in the database
         userService.save(theWebUser);
-
         logger.info("Successfully created user: " + userName);
 
         // place user in the web http session for later use
         session.setAttribute("user", theWebUser);
 
-        return "register/registration-confirmation";
+        return "/registration-confirmation";
     }
+
 }

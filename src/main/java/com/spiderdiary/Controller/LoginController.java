@@ -9,8 +9,14 @@ public class LoginController {
     @GetMapping("/login")
     public String showMyLoginPage() {
 
-        return "fancy-login";
+        return "login";
     }
+
+    @GetMapping("/user_view")
+    public String showUserView() {
+        return "/user/user_view";
+    }
+
 
     // add request mapping for /access-denied
 
