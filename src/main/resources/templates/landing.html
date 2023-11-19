@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Healthy Spiders</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    </head>
+
+    <body>
+        <div class="page1">
+            <div class="logo">
+                <h1>Healthy Spiders</h1>
+                <p>wynieś swoją hodowlę na wyższy poziom!</p>
+            </div>
+            <div class="gallery-section">
+                <div class="polaroid" style="transform: rotate(5deg);">
+                    <img src="/img/spider3.jpg" alt="Photo 1">
+                    <h1>Brahypelma boehmei</h1>
+                </div>
+                <div class="polaroid" style="transform: rotate(-3deg);">
+                    <img src="/img/spider2.jpg" alt="Photo 2">
+                    <h1>Avicularia metallica</h1>
+                </div>
+                <div class="polaroid" style="transform: rotate(4deg);">
+                    <img src="/img/spider1.jpg" alt="Photo 3">
+                    <h1>Nhandu chromatus</h1>
+                </div>
+                <div class="polaroid" style="transform: rotate(-10deg);">
+                    <img src="/img/spider4.jpg" alt="Photo 4">
+                    <h1>Phiddipus regius</h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="page2">
+            <div class="container">
+                <div class="karta1">
+                    <div class="pole1">
+                        <i class="bi bi-window-sidebar"></i>
+                    </div>
+                    <div class="tekst1">
+                        <h1>Przejrzystość i intuicyjność</h1>
+                        <p>
+                            Strona dba o prostotę i jest przyjazna dla każdego.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="karta1">
+                    <div class="pole1">
+                        <i class="bi bi-phone"></i>
+                    </div>
+                    <div class="tekst1">
+                        <h1>Wsparcie urządzeń mobilnych</h1>
+                        <p>
+                            Dostęp do notatnika będziesz miał też na telefonie. Dzięki odpowiedniej responsywności, korzystanie z notatnika w wersji mobilnej nie będzie stanowiło żadnych przeszkód.
+                        </p>
+                    </div>
+             </div>
+          </div>
+
+          <div class="container">
+            <div class="karta1">
+                <div class="pole1">
+                    <i class="bi bi-calendar-week"></i>
+                </div>
+                <div class="tekst1">
+                    <h1>Personalizacja</h1>
+                    <p>
+                        Dbaj o systematyczność w porządkach i obowiązkach swojej hodowli,
+                         tworząc odpowiednie dla siebie przypomninajki. 
+                    </p>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+        <div class="page3">
+            <div class="container">
+                <div class="tekst2">
+                    <h1>Zostań użytkownikiem już teraz!</h1>
+                    <p>
+                        Zarejestruj się i zacznij korzystać z funkcji, które pozwolą Ci zwiększyć efektywność Twojej hodowli! 
+                    </p>
+                </div>
+                <div class="regform">
+                    <form th:action="@{/register}" method="post">
+                        <label for="username">Nazwa użytkownika:</label>
+                        <input type="text" id="username" name="username" required>
+                        
+                        <label for="email">Adres e-mail:</label>
+                        <input type="email" id="email" name="email" required>
+                        
+                        <label for="password">Hasło:</label>
+                        <input type="password" id="password" name="password" required>
+                        
+                        <button type="submit">Zarejestruj się</button>
+                        <p class="zaloguj">
+                            Masz już konto?
+                            <a href="#" onclick="loginform();">Zaloguj się!</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="info">
+            <div class="socials">
+
+            </div>
+            <div class="info">
+                
+            </div>
+        </div>
+    </body>
+</html>
