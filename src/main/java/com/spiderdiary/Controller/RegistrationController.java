@@ -2,7 +2,7 @@ package com.spiderdiary.Controller;
 
 import com.spiderdiary.Entity.User;
 import com.spiderdiary.Services.UserService;
-import com.spiderdiary.User.WebUser;
+import com.spiderdiary.TempForms.WebUser;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

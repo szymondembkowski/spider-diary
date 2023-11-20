@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Healthy Spiders - Dodaj pająka</title>
+  <link rel="stylesheet" href="/css/style_user.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<body>
+
+<div class="header">
+  <div class="head-container">
+    <div class="search-bar">
+      <input type="text" class="search-input" placeholder="Search...">
+      <button class="search-icon"><i class="bi bi-search"></i></button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="side-left">
+    <div class="side-menu">
+      <a th:href="@{/user_view/}" class="menu-item nav-link">Wyświetl pająki</a>
+      <a th:href="@{/user_view/addSpiderForm}" class="menu-item nav-link">Dodaj pająka</a>
+      <div class="line"></div>
+      <a href="#" class="menu-item">przypomnienia</a>
+      <a href="#" class="menu-item">Dodaj przypomnienie</a>
+      <a href="#" class="menu-item"></a>
+    </div>
+  </div>
+
+  <div class="center">
+    <!-- Tutaj dodaj formularz dodawania pająka -->
+    <form th:action="@{/user_view/addSpiderForm}" method="post" th:object="${spiderForm}">
+      <label for="spiderName">Nazwa pająka:</label>
+      <input type="text" id="spiderName" name="spiderName" required>
+      <button type="submit">Dodaj pająka</button>
+    </form>
+  </div>
+
+  <div class="side-right"></div>
+
+</div>
+</body>
+</html>

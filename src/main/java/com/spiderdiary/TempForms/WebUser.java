@@ -1,4 +1,4 @@
-package com.spiderdiary.User;
+package com.spiderdiary.TempForms;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;

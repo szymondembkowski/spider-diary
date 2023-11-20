@@ -1,10 +1,12 @@
 package com.spiderdiary.Services;
 
 import com.spiderdiary.DAO.RoleRepository;
+import com.spiderdiary.DAO.SpiderRepository;
 import com.spiderdiary.DAO.UserRepository;
 import com.spiderdiary.Entity.Role;
+import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
-import com.spiderdiary.User.WebUser;
+import com.spiderdiary.TempForms.WebUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,15 +23,15 @@ import java.util.Collection;
 public class UserService implements UserDetailsService {
 
     private UserRepository userRepository;
-
     private RoleRepository roleRepository;
-
+    private SpiderRepository spiderRepository;
     private BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, SpiderRepository spiderRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.spiderRepository = spiderRepository; // Dodaj @Autowired
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -78,4 +80,18 @@ public class UserService implements UserDetailsService {
                 authorities);
     }
 
+    public User getUserByUsername(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    public void addSpiderToUser(Spider spider, User user) {
+        // Sprawdź, czy spiderRepository nie jest null
+        if (spiderRepository != null) {
+            // Wykonaj operacje, np. saveSpider
+            spiderRepository.save(spider);
+        } else {
+            // Obsłuż przypadki, gdy spiderRepository jest null
+            throw new RuntimeException("SpiderRepository is null");
+        }
+    }
 }
