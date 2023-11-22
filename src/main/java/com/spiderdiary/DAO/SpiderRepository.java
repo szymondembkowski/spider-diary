@@ -44,4 +44,8 @@ public class SpiderRepository {
         entityManager.remove(spider);
     }
 
+    public Optional<Spider> findById(Long id) {
+        return Optional.ofNullable(entityManager.find(Spider.class, id));
+    }
+
 }

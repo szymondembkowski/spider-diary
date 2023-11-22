@@ -39,6 +39,13 @@ public class UserController {
         return "user/addSpiderForm";
     }
 
+    @GetMapping("/editSpiderForm")
+    public String showEditSpiderForm(@RequestParam("spiderId") Long id, Model model) {
+        Spider spider = spiderRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid spider Id:" + id));
+        model.addAttribute("spiderForm", spider);
+        return "user/addSpiderForm";
+    }
+
     @PostMapping("/addSpiderForm")
     public String addSpider(WebSpider webSpider, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -47,7 +54,7 @@ public class UserController {
         Spider spider = new Spider();
         spider.setName(webSpider.getName());
         spider.setSpecies(webSpider.getSpecies());
-        spider.setMoltDate(webSpider.getLatestMolt());
+        spider.setMoltDate(webSpider.getMoltDate());
         spider.setUser(user);
 
         spiderService.save(spider);

@@ -51,7 +51,14 @@
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
                         <div class="delete-btn-container">
                             <button type="submit" class="delete-btn">Usuń</button>
-                            <button type="submit" class="delete-btn">Edytuj</button>
+                        </div>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/user_view/editSpiderForm}" method="get">
+                        <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
+                        <div class="edit-btn-container">
+                            <button type="submit" class="edit-btn">Edytuj</button>
                         </div>
                     </form>
                 </td>

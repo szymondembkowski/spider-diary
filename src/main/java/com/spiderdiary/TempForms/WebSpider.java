@@ -10,7 +10,7 @@ public class WebSpider {
     private String name;
     private String species;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date latestMolt;
+    private Date moltDate;
 
     // Getters and setters
 
@@ -30,11 +30,11 @@ public class WebSpider {
         this.species = species;
     }
 
-    public Date getLatestMolt() {
-        return latestMolt;
+    public Date getMoltDate() {
+        return moltDate;
     }
 
-    public void setLatestMolt(Date latestMolt) {
-        this.latestMolt = latestMolt;
+    public void setMoltDate(Date moltDate) {
+        this.moltDate = moltDate;
     }
 }

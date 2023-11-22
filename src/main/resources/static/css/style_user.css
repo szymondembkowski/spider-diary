@@ -102,6 +102,21 @@ body{
 
 }
 
+.center button {
+    background-color: #4F6F52;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.center button:hover {
+    background-color: #3A4D39;
+    transition: 0.3s;
+}
+
 .center h1{
     color: black;
     font-size: 3.2rem;

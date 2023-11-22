@@ -27,6 +27,9 @@
       <a href="#" class="menu-item">przypomnienia</a>
       <a href="#" class="menu-item">Dodaj przypomnienie</a>
       <a href="#" class="menu-item"></a>
+        <div class="line"></div>
+        <a href="#" onclick="document.getElementById('logoutForm').submit();" class="menu-item">Wyloguj</a>
+        <form id="logoutForm" action="#" method="POST" th:action="@{/logout}" style="display: none"></form>
     </div>
   </div>
 
@@ -40,7 +43,7 @@
           <input type="text" id="species" name="species" th:field="*{species}" required>
 
           <label for="latestMolt">Ostatnia wylinka:</label>
-          <input type="date" id="latestMolt" name="latestMolt" th:field="*{latestMolt}">
+          <input type="date" id="latestMolt" name="latestMolt" th:field="*{moltDate}">
 
           <button type="submit">Dodaj pająka</button>
       </form>
