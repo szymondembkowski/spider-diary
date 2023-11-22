@@ -1,6 +1,7 @@
 package com.spiderdiary.DAO;
 
 import com.spiderdiary.Entity.Spider;
+import com.spiderdiary.Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class SpiderRepository {
@@ -19,14 +21,27 @@ public class SpiderRepository {
         this.entityManager = entityManager;
     }
 
-    public List<Spider> findByUser_UserName(String username) {
-        TypedQuery<Spider> query = entityManager.createQuery("from Spider where user.userName=:uName", Spider.class);
-        query.setParameter("uName", username);
+
+    @Transactional
+    public Spider save(Spider spider) {
+        entityManager.merge(spider);
+        return spider;
+    }
+
+    public List<Spider> findByUser(User user) {
+        TypedQuery<Spider> query = entityManager.createQuery(
+                "SELECT s FROM Spider s WHERE s.user = :user", Spider.class);
+        query.setParameter("user", user);
         return query.getResultList();
     }
 
     @Transactional
-    public void save(Spider spider) {
-        entityManager.merge(spider);
+    public void deleteById(Long id) {
+        Spider spider = entityManager.find(Spider.class, id);
+        if (spider == null) {
+            throw new RuntimeException("No record found for given id: " + id);
+        }
+        entityManager.remove(spider);
     }
+
 }

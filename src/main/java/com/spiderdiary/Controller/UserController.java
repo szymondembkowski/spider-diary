@@ -1,23 +1,26 @@
 package com.spiderdiary.Controller;
 
+import com.spiderdiary.DAO.SpiderRepository;
+import com.spiderdiary.DAO.UserRepository;
 import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import com.spiderdiary.Services.SpiderService;
 import com.spiderdiary.Services.UserService;
 import com.spiderdiary.TempForms.WebSpider;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user_view")
+@RequestMapping("/user_view/")
 public class UserController {
 
     @Autowired
@@ -25,6 +28,10 @@ public class UserController {
 
     @Autowired
     private SpiderService spiderService;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private SpiderRepository spiderRepository;
 
     @GetMapping("/addSpiderForm")
     public String showAddSpiderForm(Model model) {
@@ -33,31 +40,34 @@ public class UserController {
     }
 
     @PostMapping("/addSpiderForm")
-    public String addSpider(@ModelAttribute("spiderForm") WebSpider spiderForm, Principal principal) {
-        // Pobierz zalogowanego użytkownika
-        String username = principal.getName();
+    public String addSpider(WebSpider webSpider, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userService.findByUserName(authentication.getName());
 
-        // Utwórz obiekt Spider i dodaj go do użytkownika
         Spider spider = new Spider();
-        spider.setSpiderName(spiderForm.getSpiderName());
-        // Ustaw użytkownika dla pająka
-        User user = userService.getUserByUsername(username);
+        spider.setName(webSpider.getName());
+        spider.setSpecies(webSpider.getSpecies());
+        spider.setMoltDate(webSpider.getLatestMolt());
         spider.setUser(user);
 
-        // Zapisz pająka
-        userService.addSpiderToUser(spider, user);
+        spiderService.save(spider);
 
-        // Przekieruj użytkownika na widok displaySpiders
-        return "redirect:/user_view/displaySpiders";
+        return "redirect:/user_view/";
     }
 
     @GetMapping("/")
-    public String displaySpiders(Model model, Principal principal) {
-        String username = principal.getName();
-        List<Spider> spiders = spiderService.getSpidersByUser(username);
-
+    public String getSpiders(Model model) {
+        User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Spider> spiders = spiderRepository.findByUser(user);
         model.addAttribute("spiders", spiders);
-
         return "user/user_view";
     }
+
+    @PostMapping("/deleteSpider")
+    public String deleteSpider(@RequestParam("spiderId") Long id) {
+        spiderRepository.deleteById(id);
+        return "redirect:/user_view/";
+    }
+
 }
+

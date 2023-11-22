@@ -18,7 +18,6 @@ public class RoleRepository {
 
     public Role findRoleByName(String theRoleName) {
 
-        // retrieve/read from database using name
         TypedQuery<Role> theQuery = entityManager.createQuery("from Role where name=:roleName", Role.class);
         theQuery.setParameter("roleName", theRoleName);
 

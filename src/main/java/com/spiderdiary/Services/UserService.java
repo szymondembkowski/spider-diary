@@ -31,13 +31,12 @@ public class UserService implements UserDetailsService {
     public UserService(UserRepository userRepository, RoleRepository roleRepository, SpiderRepository spiderRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.spiderRepository = spiderRepository; // Dodaj @Autowired
+        this.spiderRepository = spiderRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
 
     public User findByUserName(String userName) {
-        // check the database if the user already exists
         return userRepository.findByUserName(userName);
     }
 
@@ -48,10 +47,8 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(webUser.getPassword()));
         user.setEmail(webUser.getEmail());
 
-        // give user default role of "employee"
         user.setRoles(Arrays.asList(roleRepository.findRoleByName("ROLE_USER")));
 
-        // save user in the database
         userRepository.save(user);
     }
 
@@ -71,27 +68,12 @@ public class UserService implements UserDetailsService {
         User user = findByUserName(userName);
 
         if (user == null) {
-            throw new UsernameNotFoundException("Invalid username or password.");
+            throw new UsernameNotFoundException("Błędny login lub hasło");
         }
 
         Collection<SimpleGrantedAuthority> authorities = mapRolesToAuthorities(user.getRoles());
 
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
                 authorities);
-    }
-
-    public User getUserByUsername(String username) {
-        return userRepository.findByUserName(username);
-    }
-
-    public void addSpiderToUser(Spider spider, User user) {
-        // Sprawdź, czy spiderRepository nie jest null
-        if (spiderRepository != null) {
-            // Wykonaj operacje, np. saveSpider
-            spiderRepository.save(spider);
-        } else {
-            // Obsłuż przypadki, gdy spiderRepository jest null
-            throw new RuntimeException("SpiderRepository is null");
-        }
     }
 }

@@ -23,8 +23,8 @@ public class SecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserService userService) {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
-        auth.setUserDetailsService(userService); //set the custom user details service
-        auth.setPasswordEncoder(passwordEncoder()); //set the password encoder - bcrypt
+        auth.setUserDetailsService(userService);
+        auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
 
@@ -45,10 +45,13 @@ public class SecurityConfig {
                         form
                                 .loginPage("/login")
                                 .loginProcessingUrl("/authenticateTheUser")
-                                .defaultSuccessUrl("/user_view", true)
+                                .defaultSuccessUrl("/user_view/", true)
                                 .permitAll()
                 )
-                .logout(logout -> logout.permitAll()
+                .logout(logout ->
+                        logout
+                                .permitAll()
+//                                .logoutSuccessUrl("/login")
                 )
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")

@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@600&display=swap');
+
+*{
+    font-family: 'Poppins', sans-serif;
+    color: #E4E2DB;
+}
+
+.tlo {
+    background: #6D5A72;
+}
+
+.card-body{
+    border: 2px solid #6D5A72;
+    border-radius: 1rem;
+    box-shadow: inset 0 0 0.5em 0
+    #6D5A72, 0 0 0.5em 0
+    #6D5A72;
+    background: #FA9F42;
+    font-weight: bold;
+}
+
+button{
+    font-weight: bold;
+    background-color: #FA9F42;
+    color: #E4E2DB;
+    padding: 10px 20px;
+    width: 160px;
+    border: 0.125em solid #6D5A72;
+    text-shadow: 0 0 .125em
+    hsl(0 0% 100% / 0.3), 0 0  0.45em #6D5A72;
+    box-shadow: inset 0 0 0.5em 0
+    #6D5A72, 0 0 0.5em 0
+    #6D5A72;
+}
+
+button:hover{
+    background-color: #6D5A72;
+    color: #E4E2DB;
+    text-shadow: 0 0 .125em
+    hsl(0 0% 100% / 0.3), 0 0  0.45em #101728;
+    transition: 0.8s;
+}
+
+.logout{
+    color: #4f9e1c;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.blad{
+    color: #E4E2DB;
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+
+.card-body a{
+    text-decoration: none;
+    color: #6D5A72;
+    font-size: 22px;
+}
+
+.card-body a:hover{
+    font-weight: bold;
+    color: #6D5A72;
+    transition: 0.3s;
+}
+
+.form-label{
+    margin: 10px;
+}

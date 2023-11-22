@@ -17,7 +17,6 @@
 </div>
 
 <div class="container">
-
     <div class="side-left">
         <div class="side-menu">
             <a th:href="@{/user_view/}" class="menu-item nav-link">Wyświetl pająki</a>
@@ -26,31 +25,52 @@
             <a href="#" class="menu-item">przypomnienia</a>
             <a href="#" class="menu-item">Dodaj przypomnienie</a>
             <a href="#" class="menu-item"></a>
+            <div class="line"></div>
+            <a href="#" onclick="document.getElementById('logoutForm').submit();" class="menu-item">Wyloguj</a>
+            <form id="logoutForm" action="#" method="POST" th:action="@{/logout}" style="display: none"></form>
         </div>
     </div>
-
     <div class="center">
-        <!-- Tutaj dodaj kod do wyświetlania listy pająków -->
+        <h1>Lista pająków</h1>
         <table class="table">
             <thead>
-            <tr>
-                <th>ID</th>
-                <th>Nazwa pająka</th>
-                <!-- Dodaj inne kolumny, jeśli to konieczne -->
-            </tr>
+                <tr>
+                    <th>Nazwa pająka</th>
+                    <th>Gatunek</th>
+                    <th>Ostatnia wylinka</th>
+                    <th></th>
+                </tr>
             </thead>
             <tbody>
-            <!-- Iteruj przez listę pająków i wyświetl każdego w oddzielnym wierszu -->
             <tr th:each="spider : ${spiders}">
-                <td th:text="${spider.id}"></td>
-                <td th:text="${spider.spiderName}"></td>
-                <!-- Dodaj inne komórki, jeśli to konieczne -->
+                <td th:text="${spider.name}"></td>
+                <td th:text="${spider.species}"></td>
+                <td th:text="${spider.moltDate}"></td>
+                <td>
+                    <form th:action="@{/user_view/deleteSpider}" method="post">
+                        <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
+                        <div class="delete-btn-container">
+                            <button type="submit" class="delete-btn">Usuń</button>
+                            <button type="submit" class="delete-btn">Edytuj</button>
+                        </div>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
     <div class="side-right"></div>
+
+    <script>
+        document.getElementById("logoutForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var logoutLink = document.createElement("a");
+            logoutLink.href = "#";
+            logoutLink.click();
+        });
+    </script>
 
 </div>
 

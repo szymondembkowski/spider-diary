@@ -24,15 +24,13 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private Collection<Spider> spiders;
 
-    public Collection<Spider> getSpiders() {
-        return spiders;
-    }
-
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_username"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
+
+    // Getters and setters
 
     public String getUserName() {
         return userName;
@@ -66,11 +64,23 @@ public class User {
         this.email = email;
     }
 
+    public Collection<Spider> getSpiders() {
+        return spiders;
+    }
+
+    public void setSpiders(Collection<Spider> spiders) {
+        this.spiders = spiders;
+    }
+
     public Collection<Role> getRoles() {
         return roles;
     }
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getUsername() {
+        return userName;
     }
 }

@@ -19,7 +19,6 @@ public class UserRepository {
 
     public User findByUserName(String theUserName) {
 
-        // retrieve/read from database using username
         TypedQuery<User> theQuery = entityManager.createQuery("from User where userName=:uName", User.class);
         theQuery.setParameter("uName", theUserName);
 
@@ -36,8 +35,6 @@ public class UserRepository {
     @Transactional
     public void save(User theUser) {
 
-        // create the user ... finally LOL
         entityManager.merge(theUser);
     }
-
 }
