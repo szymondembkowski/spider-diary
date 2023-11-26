@@ -10,8 +10,10 @@
 <div class="header">
     <div class="head-container">
         <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Search...">
-            <button class="search-icon"><i class="bi bi-search"></i></button>
+            <form th:action="@{/user_view/search}" method="get">
+                <input type="text" class="search-input" name="query" placeholder="Search...">
+                <button class="search-icon"><i class="bi bi-search"></i></button>
+            </form>
         </div>
     </div>
 </div>
@@ -22,6 +24,9 @@
             <a th:href="@{/user_view/}" class="menu-item nav-link">Wyświetl pająki</a>
             <a th:href="@{/user_view/addSpiderForm}" class="menu-item nav-link">Dodaj pająka</a>
             <div class="line"></div>
+            <a th:href="@{/user_view/sortedByMoltDate}" class="menu-item nav-link">Wyświetl data</a>
+            <a th:href="@{/user_view/sortedByName}" class="menu-item nav-link">Wyświetl rodzaj</a>
+
             <a href="#" class="menu-item">przypomnienia</a>
             <a href="#" class="menu-item">Dodaj przypomnienie</a>
             <a href="#" class="menu-item"></a>
@@ -53,8 +58,6 @@
                             <button type="submit" class="delete-btn">Usuń</button>
                         </div>
                     </form>
-                </td>
-                <td>
                     <form th:action="@{/user_view/editSpiderForm}" method="get">
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
                         <div class="edit-btn-container">

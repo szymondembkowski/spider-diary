@@ -7,6 +7,7 @@ import com.spiderdiary.Entity.User;
 import com.spiderdiary.Services.SpiderService;
 import com.spiderdiary.Services.UserService;
 import com.spiderdiary.TempForms.WebSpider;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -32,6 +34,7 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private SpiderRepository spiderRepository;
+
 
     @GetMapping("/addSpiderForm")
     public String showAddSpiderForm(Model model) {
@@ -70,10 +73,28 @@ public class UserController {
         return "user/user_view";
     }
 
-    @PostMapping("/deleteSpider")
-    public String deleteSpider(@RequestParam("spiderId") Long id) {
-        spiderRepository.deleteById(id);
-        return "redirect:/user_view/";
+    @GetMapping("/sortedByMoltDate")
+    public String getAllSpidersSortedByMoltDate(Model model) {
+        User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Spider> spiders = spiderRepository.findAllSortedByMoltDate(user);
+        model.addAttribute("spiders", spiders);
+        return "user/user_view";
+    }
+
+    @GetMapping("/sortedByName")
+    public String getAllSpidersSortedByName(Model model) {
+        User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Spider> spiders = spiderRepository.findAllSortedByName(user);
+        model.addAttribute("spiders", spiders);
+        return "user/user_view";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam String query, Model model) {
+        User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Spider> spiders = spiderRepository.searchSpidersForUser(query, user);
+        model.addAttribute("spiders", spiders);
+        return "user/user_view";
     }
 
 }

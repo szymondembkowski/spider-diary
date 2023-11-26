@@ -1,11 +1,14 @@
 package com.spiderdiary.DAO;
 
+import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Repository
 public class UserRepository {
@@ -37,4 +40,5 @@ public class UserRepository {
 
         entityManager.merge(theUser);
     }
+
 }
