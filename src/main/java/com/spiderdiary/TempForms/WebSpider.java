@@ -7,6 +7,7 @@ import java.util.Date;
 
 public class WebSpider {
 
+    private Long id;
     private String name;
     private String species;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -36,5 +37,13 @@ public class WebSpider {
 
     public void setMoltDate(Date moltDate) {
         this.moltDate = moltDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

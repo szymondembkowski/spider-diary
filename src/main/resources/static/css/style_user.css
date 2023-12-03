@@ -32,7 +32,7 @@ body{
     width: 30vh;
     display: flex;
     align-items: center;
-    background-color: #EEE9DA;
+    background-color: #ECE3CE;
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
@@ -45,6 +45,14 @@ body{
     padding: 10px;
     border: none;
     outline: none;
+    background:transparent;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px #ECE3CE inset !important;
 }
 
 ::placeholder{
@@ -130,6 +138,7 @@ body{
     display: flex;
     flex-direction: column;
     font-size: 1.6rem;
+
 }
 
 .center label {
@@ -142,6 +151,7 @@ body{
     padding: 8px;
     margin-bottom: 16px;
     box-sizing: border-box;
+
 }
 
 .table button{
@@ -161,13 +171,24 @@ body{
     transition: 0.3s;
 }
 
-.delete-btn-container {
+.button-container {
     display: flex;
+    margin: -1px 0;
+
+    align-items: center;
+    justify-content: center;
 }
+
+.table td .button-container {
+    display: flex;
+    justify-content: center;
+}
+
+
 
 table {
     margin: 0;
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     align-items: center;
@@ -182,7 +203,6 @@ table {
 
 .table th {
     margin: 0;
-
     background-color: #3A4D39;
     color: #EEE9DA;
 }

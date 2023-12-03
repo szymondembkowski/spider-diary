@@ -2,7 +2,7 @@
 
 *{
     font-family: 'Poppins', sans-serif;
-    color: #E4E2DB;
+    color: #101728;
 }
 
 .tlo {
@@ -10,7 +10,7 @@
 }
 
 .card-body{
-    border: 2px solid #6D5A72;
+    border: 2px solid #FA9F42;
     border-radius: 1rem;
     box-shadow: inset 0 0 0.5em 0
     #6D5A72, 0 0 0.5em 0
@@ -22,7 +22,7 @@
 button{
     font-weight: bold;
     background-color: #FA9F42;
-    color: #E4E2DB;
+    color: #6D5A72;
     padding: 10px 20px;
     width: 160px;
     border: 0.125em solid #6D5A72;
@@ -48,20 +48,20 @@ button:hover{
 }
 
 .blad{
-    color: #E4E2DB;
+    color: red;
     margin-bottom: 20px;
     font-size: 16px;
 }
 
 .card-body a{
     text-decoration: none;
-    color: #6D5A72;
+    color: #101728;
     font-size: 22px;
 }
 
 .card-body a:hover{
     font-weight: bold;
-    color: #6D5A72;
+    color: #101728;
     transition: 0.3s;
 }
 

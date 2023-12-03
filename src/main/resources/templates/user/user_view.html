@@ -9,8 +9,8 @@
 
 <div class="header">
     <div class="head-container">
-        <div class="search-bar">
-            <form th:action="@{/user_view/search}" method="get">
+        <div>
+            <form th:action="@{/user_view/search}" method="get" class="search-bar">
                 <input type="text" class="search-input" name="query" placeholder="Search...">
                 <button class="search-icon"><i class="bi bi-search"></i></button>
             </form>
@@ -39,36 +39,35 @@
         <h1>Lista pająków</h1>
         <table class="table">
             <thead>
-                <tr>
-                    <th>Nazwa pająka</th>
-                    <th>Gatunek</th>
-                    <th>Ostatnia wylinka</th>
-                    <th></th>
-                </tr>
+            <tr>
+                <th>Nazwa pająka</th>
+                <th>Gatunek</th>
+                <th>Ostatnia wylinka</th>
+                <th></th>
+            </tr>
             </thead>
             <tbody>
             <tr th:each="spider : ${spiders}">
                 <td th:text="${spider.name}"></td>
                 <td th:text="${spider.species}"></td>
                 <td th:text="${spider.moltDate}"></td>
-                <td>
-                    <form th:action="@{/user_view/deleteSpider}" method="post">
+                <td class="button-container">
+                    <form th:action="@{/user_view/deleteSpider}" method="get">
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
-                        <div class="delete-btn-container">
-                            <button type="submit" class="delete-btn">Usuń</button>
-                        </div>
+                        <button type="submit" class="delete-btn">Usuń</button>
                     </form>
                     <form th:action="@{/user_view/editSpiderForm}" method="get">
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
-                        <div class="edit-btn-container">
-                            <button type="submit" class="edit-btn">Edytuj</button>
-                        </div>
+                        <button type="submit" class="edit-btn">Edytuj</button>
                     </form>
+                </td>
+
                 </td>
             </tr>
             </tbody>
         </table>
     </div>
+
 
     <div class="side-right"></div>
 

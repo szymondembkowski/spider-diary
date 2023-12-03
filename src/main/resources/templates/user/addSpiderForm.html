@@ -33,9 +33,13 @@
     </div>
   </div>
 
-  <div class="center">
+    <div class="center">
     <h1>Dodaj pająka</h1>
-      <form th:action="@{/user_view/addSpiderForm}" method="post" th:object="${spiderForm}">
+        <form th:action="${spiderForm.id != null ? '/user_view/saveEditedSpider' : '/user_view/addSpiderForm'}" method="post" th:object="${spiderForm}">
+
+          <input type="hidden" th:field="*{id}" />
+
+
           <label for="name">Nazwa pająka:</label>
           <input type="text" id="name" name="name" th:field="*{name}" required>
 
@@ -45,7 +49,7 @@
           <label for="latestMolt">Ostatnia wylinka:</label>
           <input type="date" id="latestMolt" name="latestMolt" th:field="*{moltDate}">
 
-          <button type="submit">Dodaj pająka</button>
+            <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
       </form>
 </div>
 
