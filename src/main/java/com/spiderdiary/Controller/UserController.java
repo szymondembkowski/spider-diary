@@ -6,6 +6,7 @@ import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import com.spiderdiary.Services.SpiderService;
 import com.spiderdiary.Services.UserService;
+import com.spiderdiary.TempForms.Gender;
 import com.spiderdiary.TempForms.WebSpider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -112,12 +113,23 @@ public class UserController {
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam String query, Model model) {
-        User user = userRepository.findByUserName(SecurityContextHolder.getContext().getAuthentication().getName());
-        List<Spider> spiders = spiderRepository.searchSpidersForUser(query, user);
+    public String search(@RequestParam(required = false) String query, @RequestParam(required = false) Gender gender, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByUserName(authentication.getName());
+
+        List<Spider> spiders;
+
+        if (gender != null) {
+            spiders = spiderService.searchSpidersByGenderAndUser(gender, user);
+        } else {
+            spiders = spiderService.searchSpidersForUser(query, user);
+        }
+
         model.addAttribute("spiders", spiders);
+
         return "user/user_view";
     }
+
 
 }
 

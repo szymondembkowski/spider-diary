@@ -3,7 +3,7 @@ package com.spiderdiary.TempForms;
 public enum Gender {
     MALE("Samiec"),
     FEMALE("Samica"),
-    UNKNOWN("Nieznana");
+    NOT_SPECIFIED("Nieznana");
 
     private final String label;
 
@@ -14,4 +14,6 @@ public enum Gender {
     public String getLabel() {
         return label;
     }
+
+
 }

@@ -10,9 +10,23 @@
 
 <div class="header">
   <div class="head-container">
-    <div class="search-bar">
-      <input type="text" class="search-input" placeholder="Search...">
-      <button class="search-icon"><i class="bi bi-search"></i></button>
+    <div class="form-container">
+      <form th:action="@{/user_view/search}" method="get" class="search-bar">
+        <div class="search-container">
+          <input type="text" class="search-input" name="query" placeholder="Search...">
+          <button class="search-icon"><i class="bi bi-search"></i></button>
+        </div>
+        <div class="radio-container">
+          <input type="radio" name="gender" id="male" value="male">
+          <label for="male">Samiec</label>
+
+          <input type="radio" name="gender" id="female" value="female">
+          <label for="female">Samica</label>
+
+          <input type="radio" name="gender" id="not_specified" value="not_specified">
+          <label for="not_specified">Nieokreślona</label>
+        </div>
+      </form>
     </div>
   </div>
 </div>

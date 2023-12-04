@@ -2,7 +2,9 @@ package com.spiderdiary.DAO;
 
 import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
+import com.spiderdiary.TempForms.Gender;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,12 +64,19 @@ public class SpiderRepository {
         return query.getResultList();
     }
 
-    public List<Spider> searchSpidersForUser(String query, User user) {
-        String jpqlQuery = "SELECT s FROM Spider s WHERE (s.name LIKE :query OR s.species LIKE :query) AND s.user = :user";
-        TypedQuery<Spider> typedQuery = entityManager.createQuery(jpqlQuery, Spider.class);
-        typedQuery.setParameter("query", "%" + query + "%");
-        typedQuery.setParameter("user", user);
-        return typedQuery.getResultList();
+    public List<Spider> findByGenderAndUser(Gender gender, User user) {
+        String jpql = "SELECT s FROM Spider s WHERE s.gender = :gender AND s.user = :user";
+        TypedQuery<Spider> query = entityManager.createQuery(jpql, Spider.class);
+        query.setParameter("gender", gender);
+        query.setParameter("user", user);
+        return query.getResultList();
     }
 
+    public List<Spider> searchSpidersForUser(String searchString, User user) {
+        String jpql = "SELECT s FROM Spider s WHERE s.user = :user AND LOWER(s.name) LIKE LOWER(:searchString)";
+        Query query = entityManager.createQuery(jpql, Spider.class);
+        query.setParameter("user", user);
+        query.setParameter("searchString", "%" + searchString + "%");
+        return query.getResultList();
+    }
 }

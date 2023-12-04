@@ -9,10 +9,17 @@
 
 <div class="header">
     <div class="head-container">
-        <div>
+        <div class="form-container">
             <form th:action="@{/user_view/search}" method="get" class="search-bar">
-                <input type="text" class="search-input" name="query" placeholder="Search...">
-                <button class="search-icon"><i class="bi bi-search"></i></button>
+                <div class="search-container">
+                    <input type="text" class="search-input" name="query" placeholder="Search...">
+                    <button class="search-icon"><i class="bi bi-search"></i></button>
+                </div>
+                <form th:action="@{/user_view/search}" method="get" class="search-bar">
+                    <button type="submit" name="gender" value="MALE" class="">Male</button>
+                    <button type="submit" name="gender" value="FEMALE" class="">Female</button>
+                    <button type="submit" name="gender" value="NOT_SPECIFIED" class="">Not Specified</button>
+                </form>
             </form>
         </div>
     </div>
@@ -82,7 +89,6 @@
             logoutLink.click();
         });
     </script>
-
 </div>
 
 </body>
