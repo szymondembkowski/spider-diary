@@ -33,25 +33,38 @@
     </div>
   </div>
 
-    <div class="center">
+  <div class="center">
     <h1>Dodaj pająka</h1>
-        <form th:action="${spiderForm.id != null ? '/user_view/saveEditedSpider' : '/user_view/addSpiderForm'}" method="post" th:object="${spiderForm}">
+    <form th:action="${spiderForm.id != null ? '/user_view/saveEditedSpider' : '/user_view/addSpiderForm'}" method="post" th:object="${spiderForm}">
 
-          <input type="hidden" th:field="*{id}" />
+      <input type="hidden" th:field="*{id}" />
+
+      <label for="name">Nazwa pająka:</label>
+      <input type="text" id="name" name="name" th:field="*{name}" required>
+
+      <label for="species">Gatunek:</label>
+      <input type="text" id="species" name="species" th:field="*{species}" required>
+
+      <label for="latestMolt">Ostatnia wylinka:</label>
+      <input type="date" id="latestMolt" name="latestMolt" th:field="*{moltDate}">
+
+      <label for="gender">Płeć:</label>
+      <select id="gender" name="gender" th:field="*{gender}">
+        <option th:each="enumValue : ${T(com.spiderdiary.TempForms.Gender).values()}"
+                th:value="${enumValue}" th:text="${enumValue.label}"></option>
+      </select>
 
 
-          <label for="name">Nazwa pająka:</label>
-          <input type="text" id="name" name="name" th:field="*{name}" required>
 
-          <label for="species">Gatunek:</label>
-          <input type="text" id="species" name="species" th:field="*{species}" required>
+      <label for="tags">Tagi:</label>
+      <select multiple="multiple" id="tags" name="tags" th:field="*{tags}">
+        <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
+      </select>
 
-          <label for="latestMolt">Ostatnia wylinka:</label>
-          <input type="date" id="latestMolt" name="latestMolt" th:field="*{moltDate}">
+      <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
+    </form>
+  </div>
 
-            <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
-      </form>
-</div>
 
 
   <div class="side-right"></div>

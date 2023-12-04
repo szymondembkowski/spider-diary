@@ -1,8 +1,12 @@
 package com.spiderdiary.Entity;
 
+import com.spiderdiary.TempForms.Gender;
+import com.spiderdiary.TagEntity.Tag;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "spider")
@@ -26,7 +30,19 @@ public class Spider {
     @JoinColumn(name = "user_username", nullable = false)
     private User user;
 
-    // Getters and setters
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    @ManyToMany
+    @JoinTable(
+            name = "spider_tag",
+            joinColumns = @JoinColumn(name = "spider_id"),
+            inverseJoinColumns = @JoinColumn(name = "tag_id")
+    )
+    private Set<Tag> tags = new HashSet<>();
+
+
+// ----------------------------------------------------------------
 
     public Long getId() {
         return id;
@@ -66,5 +82,21 @@ public class Spider {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }

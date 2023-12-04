@@ -1,10 +1,12 @@
-body, html {
-    background-color: #4F6F52 !important;
+body {
+    height: 100vh;
+
+    background-color: #6D5A72 !important;
     font-family: 'Roboto', sans-serif;
 }
 
 .login-box {
-    margin-top: 75px;
+    margin-top: 80px;
     height: auto;
     background: #1f1f1f;
     text-align: center;
@@ -64,7 +66,7 @@ input[type=password]:focus {
     border-color: inherit;
     -webkit-box-shadow: none;
     box-shadow: none;
-    border-bottom: 2px solid #4F6F52;
+    border-bottom: 2px solid #FA9F42;
     transition: 0.4s;
     outline: 0;
     background-color: #1f1f1f;
@@ -98,7 +100,7 @@ label {
 }
 
 .btn:hover {
-    background-color: #4F6F52;
+    background-color: #FA9F42;
     transition: 0.4s;
 }
 

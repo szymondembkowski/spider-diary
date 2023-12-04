@@ -7,7 +7,6 @@ import com.spiderdiary.Entity.User;
 import com.spiderdiary.Services.SpiderService;
 import com.spiderdiary.Services.UserService;
 import com.spiderdiary.TempForms.WebSpider;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -35,9 +33,11 @@ public class UserController {
 
     @GetMapping("/addSpiderForm")
     public String showAddSpiderForm(Model model) {
-        model.addAttribute("spiderForm", new WebSpider());
+        WebSpider webSpider = new WebSpider();
+        model.addAttribute("spiderForm", webSpider);
         return "user/addSpiderForm";
     }
+
 
     @GetMapping("/editSpiderForm")
     public String showEditSpiderForm(@RequestParam("spiderId") Long id, Model model) {
@@ -48,16 +48,14 @@ public class UserController {
 
     @PostMapping("/saveEditedSpider")
     public String saveEditedSpider(@ModelAttribute("spiderForm") WebSpider webSpider) {
-        // Pobierz istniejącego pająka z bazy danych
         Spider existingSpider = spiderRepository.findById(webSpider.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid spider Id:" + webSpider.getId()));
 
-        // Aktualizuj pola pająka z danymi z formularza
         existingSpider.setName(webSpider.getName());
         existingSpider.setSpecies(webSpider.getSpecies());
         existingSpider.setMoltDate(webSpider.getMoltDate());
+        existingSpider.setGender(webSpider.getGender());
 
-        // Zapisz zaktualizowanego pająka
         spiderRepository.save(existingSpider);
 
         return "redirect:/user_view/";
@@ -65,7 +63,7 @@ public class UserController {
 
 
     @PostMapping("/addSpiderForm")
-    public String addSpider(WebSpider webSpider, Model model) {
+    public String addSpider(@ModelAttribute("spiderForm") WebSpider webSpider, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUserName(authentication.getName());
 
@@ -74,18 +72,20 @@ public class UserController {
         spider.setSpecies(webSpider.getSpecies());
         spider.setMoltDate(webSpider.getMoltDate());
         spider.setUser(user);
+        spider.setGender(webSpider.getGender());
+        spider.setTags(webSpider.getTags()); // Use the tags property
 
         spiderService.save(spider);
 
         return "redirect:/user_view/";
     }
 
+
     @GetMapping("/deleteSpider")
     public String deleteSpider(@RequestParam("spiderId") Long id) {
         spiderRepository.deleteById(id);
         return "redirect:/user_view/";
     }
-
 
     @GetMapping("/")
     public String getSpiders(Model model) {
