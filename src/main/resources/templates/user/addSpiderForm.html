@@ -9,26 +9,21 @@
 <body>
 
 <div class="header">
-  <div class="head-container">
-    <div class="form-container">
-      <form th:action="@{/user_view/search}" method="get" class="search-bar">
-        <div class="search-container">
-          <input type="text" class="search-input" name="query" placeholder="Search...">
-          <button class="search-icon"><i class="bi bi-search"></i></button>
+    <div class="head-container">
+        <div class="form-container">
+            <form th:action="@{/user_view/search}" method="get" class="search-bar">
+                <div class="search-container">
+                    <input type="text" class="search-input" name="query" placeholder="Search...">
+                    <button class="search-icon"><i class="bi bi-search"></i></button>
+                </div>
+                <form th:action="@{/user_view/search}" method="get" class="search-bar">
+                    <button type="submit" name="gender" value="MALE" class="">Male</button>
+                    <button type="submit" name="gender" value="FEMALE" class="">Female</button>
+                    <button type="submit" name="gender" value="NOT_SPECIFIED" class="">Not Specified</button>
+                </form>
+            </form>
         </div>
-        <div class="radio-container">
-          <input type="radio" name="gender" id="male" value="male">
-          <label for="male">Samiec</label>
-
-          <input type="radio" name="gender" id="female" value="female">
-          <label for="female">Samica</label>
-
-          <input type="radio" name="gender" id="not_specified" value="not_specified">
-          <label for="not_specified">Nieokreślona</label>
-        </div>
-      </form>
     </div>
-  </div>
 </div>
 
 <div class="container">
@@ -68,14 +63,20 @@
                 th:value="${enumValue}" th:text="${enumValue.label}"></option>
       </select>
 
-
-
       <label for="tags">Tagi:</label>
       <select multiple="multiple" id="tags" name="tags" th:field="*{tags}">
         <option th:each="tag : ${allTags}" th:value="${tag.id}" th:text="${tag.name}"></option>
       </select>
 
-      <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
+        <label for="rozmiar.wylinki">Wylinki:</label>
+        <input type="text" id="rozmiar.wylinki" name="rozmiar.wylinki" th:field="*{rozmiar.wylinki}">
+
+        <label for="rozmiar.dlugoscCiala">Długość ciała:</label>
+        <input type="text" id="rozmiar.dlugoscCiala" name="rozmiar.dlugoscCiala" th:field="*{rozmiar.dlugoscCiala}">
+
+
+
+        <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
     </form>
   </div>
 

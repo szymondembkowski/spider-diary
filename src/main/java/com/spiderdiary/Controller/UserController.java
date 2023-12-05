@@ -1,13 +1,16 @@
 package com.spiderdiary.Controller;
 
+import com.spiderdiary.DAO.RozmiarRepository;
 import com.spiderdiary.DAO.SpiderRepository;
 import com.spiderdiary.DAO.UserRepository;
+import com.spiderdiary.Entity.Extras.Rozmiar;
 import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import com.spiderdiary.Services.SpiderService;
 import com.spiderdiary.Services.UserService;
 import com.spiderdiary.TempForms.Gender;
 import com.spiderdiary.TempForms.WebSpider;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -30,6 +33,8 @@ public class UserController {
     private UserRepository userRepository;
     @Autowired
     private SpiderRepository spiderRepository;
+    @Autowired
+    private RozmiarRepository rozmiarRepository;
 
 
     @GetMapping("/addSpiderForm")
@@ -57,12 +62,22 @@ public class UserController {
         existingSpider.setMoltDate(webSpider.getMoltDate());
         existingSpider.setGender(webSpider.getGender());
 
+        Rozmiar existingRozmiar = existingSpider.getRozmiar();
+        if (existingRozmiar == null) {
+            existingRozmiar = new Rozmiar();
+            existingSpider.setRozmiar(existingRozmiar);
+        }
+        existingRozmiar.setDlugoscCiala(webSpider.getRozmiar().getDlugoscCiala());
+
+        // Save Spider and its associated Rozmiar
         spiderRepository.save(existingSpider);
 
         return "redirect:/user_view/";
     }
 
 
+
+    @Transactional
     @PostMapping("/addSpiderForm")
     public String addSpider(@ModelAttribute("spiderForm") WebSpider webSpider, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -74,12 +89,20 @@ public class UserController {
         spider.setMoltDate(webSpider.getMoltDate());
         spider.setUser(user);
         spider.setGender(webSpider.getGender());
-        spider.setTags(webSpider.getTags()); // Use the tags property
+        spider.setTags(webSpider.getTags());
+
+        Rozmiar rozmiar = new Rozmiar();
+        rozmiar.setWylinki(webSpider.getRozmiar().getWylinki());
+        rozmiar.setDlugoscCiala(webSpider.getRozmiar().getDlugoscCiala());
+        rozmiar = rozmiarRepository.save(rozmiar); // Save the Rozmiar entity to the database
+        spider.setRozmiar(rozmiar);
 
         spiderService.save(spider);
 
         return "redirect:/user_view/";
     }
+
+
 
 
     @GetMapping("/deleteSpider")

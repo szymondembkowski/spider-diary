@@ -51,6 +51,7 @@
                 <th>Gatunek</th>
                 <th>Ostatnia wylinka</th>
                 <th>Płeć</th>
+                <th>Długość ciała</th> <!-- Dodano nową kolumnę -->
                 <th></th>
             </tr>
             </thead>
@@ -60,6 +61,8 @@
                 <td th:text="${spider.species}"></td>
                 <td th:text="${spider.moltDate}"></td>
                 <td th:text="${spider.gender.getLabel()}"></td>
+                <td th:text="${spider.rozmiar != null ? spider.rozmiar.dlugoscCiala : ''}"></td>
+
                 <td class="button-container">
                     <form th:action="@{/user_view/deleteSpider}" method="get">
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
@@ -69,9 +72,6 @@
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
                         <button type="submit" class="edit-btn">Edytuj</button>
                     </form>
-                </td>
-
-                </td>
             </tr>
             </tbody>
         </table>

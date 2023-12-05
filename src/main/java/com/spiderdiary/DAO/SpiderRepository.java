@@ -23,10 +23,9 @@ public class SpiderRepository {
         this.entityManager = entityManager;
     }
 
-
     @Transactional
     public Spider save(Spider spider) {
-        entityManager.merge(spider);
+        entityManager.persist(spider);
         return spider;
     }
 
@@ -79,4 +78,5 @@ public class SpiderRepository {
         query.setParameter("searchString", "%" + searchString + "%");
         return query.getResultList();
     }
+
 }

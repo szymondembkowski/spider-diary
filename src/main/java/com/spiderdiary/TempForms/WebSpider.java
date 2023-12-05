@@ -1,9 +1,11 @@
 package com.spiderdiary.TempForms;
 
 
+import com.spiderdiary.Entity.Extras.Rozmiar;
 import com.spiderdiary.TagEntity.Tag;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -18,11 +20,23 @@ public class WebSpider {
     private Date moltDate;
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
     private Set<Tag> tags;
 
+    private Rozmiar rozmiar = new Rozmiar();
+
+    private String wylinki;
+
+    private String dlugoscCiala;
 
     // Getters and setters
+
+    public String getDlugoscCiala() {
+        return dlugoscCiala;
+    }
+
+    public void setDlugoscCiala(String dlugoscCiala) {
+        this.dlugoscCiala = dlugoscCiala;
+    }
 
     public String getName() {
         return name;
@@ -76,4 +90,19 @@ public class WebSpider {
         return gender != null ? gender.getLabel() : "";
     }
 
+    public Rozmiar getRozmiar() {
+        return rozmiar;
+    }
+
+    public void setRozmiar(Rozmiar rozmiar) {
+        this.rozmiar = rozmiar;
+    }
+
+    public String getWylinki() {
+        return wylinki;
+    }
+
+    public void setWylinki(String wylinki) {
+        this.wylinki = wylinki;
+    }
 }

@@ -1,5 +1,6 @@
 package com.spiderdiary.Entity;
 
+import com.spiderdiary.Entity.Extras.Rozmiar;
 import com.spiderdiary.TempForms.Gender;
 import com.spiderdiary.TagEntity.Tag;
 import jakarta.persistence.*;
@@ -40,6 +41,11 @@ public class Spider {
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
     private Set<Tag> tags = new HashSet<>();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "rozmiar_id")
+    private Rozmiar rozmiar;
+
 
 
 // ----------------------------------------------------------------
@@ -98,5 +104,13 @@ public class Spider {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public void setRozmiar(Rozmiar rozmiar) {
+        this.rozmiar = rozmiar;
+    }
+
+    public Rozmiar getRozmiar(){
+        return rozmiar;
     }
 }
