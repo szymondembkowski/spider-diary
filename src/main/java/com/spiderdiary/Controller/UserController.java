@@ -152,7 +152,4 @@ public class UserController {
 
         return "user/user_view";
     }
-
-
 }
-
