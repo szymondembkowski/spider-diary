@@ -41,6 +41,7 @@ public class Spider {
     @OneToMany(mappedBy = "spider", cascade = CascadeType.ALL)
     private List<Feeding> feedings;
 
+
     public List<Feeding> getFeedings() {
         return feedings;
     }

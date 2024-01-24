@@ -85,8 +85,7 @@ public class UserController {
 
 
     @PostMapping("/saveEditedSpider")
-    public String saveEditedSpider(@ModelAttribute("spiderForm") WebSpider webSpider, Model model,
-                                   @RequestParam(value = "feedingsPerWeek", defaultValue = "0") int feedingsPerWeek) {
+    public String saveEditedSpider(@ModelAttribute("spiderForm") WebSpider webSpider, Model model) {
         System.out.println("Received WebSpider data: " + webSpider);
 
         Spider existingSpider = spiderRepository.findById(webSpider.getId())
@@ -110,15 +109,17 @@ public class UserController {
         List<Feeding> feedings = existingSpider.getFeedings();
         if (feedings == null || feedings.isEmpty()) {
             feedings = new ArrayList<>();
-            feedings.add(new Feeding());
             existingSpider.setFeedings(feedings);
         }
 
-        Feeding feeding = feedings.get(0);
-        System.out.println("Before setting feedingsPerWeek: " + feeding.getFeedingsPerWeek());
-        feeding.setFeedingsPerWeek(webSpider.getFeedingsPerWeek());
-        System.out.println("After setting feedingsPerWeek: " + feeding.getFeedingsPerWeek());
-        feedingRepository.saveAndFlush(feeding);
+        if (webSpider.getFeedings() != null && !webSpider.getFeedings().isEmpty()) {
+            Feeding feeding = feedings.isEmpty() ? new Feeding() : feedings.get(0);
+            feeding.setFeedingsPerWeek(webSpider.getFeedings().get(0).getFeedingsPerWeek());
+            FoodType foodType = foodTypeRepository.findById(webSpider.getFoodTypeId())
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid foodType Id:" + webSpider.getFoodTypeId()));
+            feeding.setFoodType(foodType);
+        }
+
         spiderRepository.save(existingSpider);
 
         System.out.println("Existing Spider after update: " + existingSpider);
