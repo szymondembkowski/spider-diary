@@ -45,4 +45,6 @@ public class RozmiarRepository {
             return entityManager.merge(rozmiar);
         }
     }
+
+
 }

@@ -3,6 +3,8 @@ package com.spiderdiary.Entity.Extras;
 import com.spiderdiary.Entity.Spider;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Rozmiar {
 
@@ -12,7 +14,11 @@ public class Rozmiar {
 
     private String wylinki;
 
+    @Column(name = "dlugosc_ciala")
     private String dlugoscCiala;
+
+    @OneToMany(mappedBy = "rozmiar")
+    private List<Feeding> feedings;
 
 
     // Getters and setters

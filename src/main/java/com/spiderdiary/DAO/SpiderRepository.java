@@ -72,10 +72,24 @@ public class SpiderRepository {
     }
 
     public List<Spider> searchSpidersForUser(String searchString, User user) {
-        String jpql = "SELECT s FROM Spider s WHERE s.user = :user AND LOWER(s.name) LIKE LOWER(:searchString)";
+        String jpql = "SELECT s FROM Spider s WHERE s.user = :user AND (LOWER(s.name) LIKE LOWER(:searchString) OR LOWER(s.species) LIKE LOWER(:searchString))";
         Query query = entityManager.createQuery(jpql, Spider.class);
         query.setParameter("user", user);
         query.setParameter("searchString", "%" + searchString + "%");
+        return query.getResultList();
+    }
+
+    public List<Spider> findAllSortedByFeedingsPerWeek(User user) {
+        TypedQuery<Spider> query = entityManager.createQuery(
+                "SELECT s FROM Spider s JOIN s.feedings f WHERE s.user = :user ORDER BY f.feedingsPerWeek DESC", Spider.class);
+        query.setParameter("user", user);
+        return query.getResultList();
+    }
+
+    public List<Spider> findAllSortedByFoodName(User user) {
+        TypedQuery<Spider> query = entityManager.createQuery(
+                "SELECT s FROM Spider s JOIN s.feedings f JOIN f.foodType ft WHERE s.user = :user ORDER BY ft.foodName ASC", Spider.class);
+        query.setParameter("user", user);
         return query.getResultList();
     }
 

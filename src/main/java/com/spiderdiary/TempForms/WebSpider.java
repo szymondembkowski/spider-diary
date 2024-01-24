@@ -1,41 +1,74 @@
 package com.spiderdiary.TempForms;
 
-
+import com.spiderdiary.Entity.Extras.Feeding;
 import com.spiderdiary.Entity.Extras.Rozmiar;
-import com.spiderdiary.TagEntity.Tag;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 public class WebSpider {
 
     private Long id;
     private String name;
     private String species;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date moltDate;
-    @Enumerated(EnumType.STRING)
     private Gender gender;
-    private Set<Tag> tags;
 
     private Rozmiar rozmiar = new Rozmiar();
-
     private String wylinki;
-
     private String dlugoscCiala;
+
+    private List<Feeding> feedings;
+
+    private int feedingsPerWeek;
+    private Long foodTypeId;
+
+    private Long spiderId;
+
 
     // Getters and setters
 
-    public String getDlugoscCiala() {
-        return dlugoscCiala;
+    public Long getSpiderId() {
+        return spiderId;
     }
 
-    public void setDlugoscCiala(String dlugoscCiala) {
-        this.dlugoscCiala = dlugoscCiala;
+    public void setSpiderId(Long spiderId) {
+        this.spiderId = spiderId;
+    }
+
+    public int getFeedingsPerWeek() {
+        return feedingsPerWeek;
+    }
+
+    public void setFeedingsPerWeek(int feedingsPerWeek) {
+        this.feedingsPerWeek = feedingsPerWeek;
+    }
+
+    public Long getFoodTypeId() {
+        return foodTypeId;
+    }
+
+    public void setFoodTypeId(Long foodTypeId) {
+        this.foodTypeId = foodTypeId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public List<Feeding> getFeedings() {
+        return feedings;
+    }
+
+    public void setFeedings(List<Feeding> feedings) {
+        this.feedings = feedings;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -62,32 +95,12 @@ public class WebSpider {
         this.moltDate = moltDate;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
-    }
-
     public Gender getGender() {
         return gender;
     }
 
     public void setGender(Gender gender) {
         this.gender = gender;
-    }
-
-    public String getGenderLabel() {
-        return gender != null ? gender.getLabel() : "";
     }
 
     public Rozmiar getRozmiar() {
@@ -104,5 +117,13 @@ public class WebSpider {
 
     public void setWylinki(String wylinki) {
         this.wylinki = wylinki;
+    }
+
+    public String getDlugoscCiala() {
+        return dlugoscCiala;
+    }
+
+    public void setDlugoscCiala(String dlugoscCiala) {
+        this.dlugoscCiala = dlugoscCiala;
     }
 }

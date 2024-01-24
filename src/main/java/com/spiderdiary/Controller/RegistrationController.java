@@ -52,23 +52,19 @@ public class RegistrationController {
         String userName = theWebUser.getUserName();
         logger.info("Processing registration form for: " + userName);
 
-        // form validation
         if (theBindingResult.hasErrors()) {
             return "regError";
         }
 
-        // check the database if user already exists
         User existing = userService.findByUserName(userName);
         if (existing != null) {
             theModel.addAttribute("registrationError", "User name already exists.");
             return "regError";
         }
 
-        // create user account and store in the database
         userService.save(theWebUser);
         logger.info("Successfully created user: " + userName);
 
-        // place user in the web http session for later use
         session.setAttribute("user", theWebUser);
 
         return "/registration-confirmation";

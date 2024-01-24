@@ -1,13 +1,13 @@
 package com.spiderdiary.Entity;
 
+import com.spiderdiary.Entity.Extras.Feeding;
 import com.spiderdiary.Entity.Extras.Rozmiar;
 import com.spiderdiary.TempForms.Gender;
-import com.spiderdiary.TagEntity.Tag;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "spider")
@@ -34,21 +34,34 @@ public class Spider {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @ManyToMany
-    @JoinTable(
-            name = "spider_tag",
-            joinColumns = @JoinColumn(name = "spider_id"),
-            inverseJoinColumns = @JoinColumn(name = "tag_id")
-    )
-    private Set<Tag> tags = new HashSet<>();
-
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "rozmiar_id")
     private Rozmiar rozmiar;
 
+    @OneToMany(mappedBy = "spider", cascade = CascadeType.ALL)
+    private List<Feeding> feedings;
 
+    public List<Feeding> getFeedings() {
+        return feedings;
+    }
+
+    public void setFeedings(List<Feeding> feedings) {
+        for (Feeding feeding : feedings) {
+            feeding.setSpider(this);
+        }
+        this.feedings = feedings;
+    }
 
 // ----------------------------------------------------------------
+
+    public Spider() {
+        this.feedings = new ArrayList<>();
+    }
+
+    public void addFeeding(Feeding feeding) {
+        feedings.add(feeding);
+        feeding.setSpider(this);
+    }
 
     public Long getId() {
         return id;
@@ -88,14 +101,6 @@ public class Spider {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Set<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags = tags;
     }
 
     public Gender getGender() {
