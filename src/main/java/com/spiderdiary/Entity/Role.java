@@ -2,6 +2,8 @@ package com.spiderdiary.Entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "role")
 public class Role {
@@ -13,6 +15,9 @@ public class Role {
 
     @Column(name = "name")
     private String name;
+
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role() {
     }
@@ -41,4 +46,13 @@ public class Role {
     public String toString() {
         return "Role{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
 }

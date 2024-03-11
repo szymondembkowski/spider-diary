@@ -31,13 +31,13 @@
     <div class="side-left">
         <div class="side-menu">
             <a th:href="@{/user_view/}" class="menu-item nav-link">Wyświetl pająki</a>
+            <a th:href="@{/user_view/feedings}" class="menu-item">Wyświetl karmienia</a>
+
             <a th:href="@{/user_view/addSpiderForm}" class="menu-item nav-link">Dodaj pająka</a>
             <div class="line"></div>
-            <a th:href="@{/user_view/sortedByMoltDate}" class="menu-item nav-link">Wyświetl data</a>
-            <a th:href="@{/user_view/sortedByName}" class="menu-item nav-link">Wyświetl rodzaj</a>
-
-            <a th:href="@{/user_view/feedings}" class="menu-item">Wyświetl karmienia</a>
-            <a th:href="@{/user_view/editFeedingForm}" class="menu-item">Edytuj karmienia</a>
+            <a th:href="@{/user_view/sortedByFoodName}" class="menu-item nav-link">Sortuj po rodzaju jedzenia</a>
+            <a th:href="@{/user_view/sortedByFeedingsPerWeek}" class="menu-item nav-link">Sortuj po karmieniach</a>
+            <div class="line"></div>
 
             <a href="#" class="menu-item">przypomnienia</a>
             <a href="#" class="menu-item">Dodaj przypomnienie</a>
@@ -47,7 +47,7 @@
         </div>
     </div>
     <div class="center">
-        <h1>Lista pająków</h1>
+        <h1>Lista karmień</h1>
         <table class="table">
             <tr>
                 <th>Spider Name</th>
@@ -55,10 +55,10 @@
             </tr>
             <tr th:each="spider : ${spiders}">
                 <td th:text="${spider.name}"></td>
-                <td th:text="${#lists.isEmpty(spider.feedings) ? '' : spider.feedings[0].foodType.foodName + ' : ' + spider.feedings[0].feedingsPerWeek}"></td>
+                <td th:text="${#lists.isEmpty(spider.feedings) ? '' : spider.feedings[0].foodType.foodName + ' : '
+                 + spider.feedings[0].feedingsPerWeek}"></td>
             </tr>
         </table>
-
     </div>
 
     <div class="side-right"></div>

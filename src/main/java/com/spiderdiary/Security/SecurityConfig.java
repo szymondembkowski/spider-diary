@@ -13,13 +13,11 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    //bcrypt bean definition
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    //authenticationProvider bean definition
     @Bean
     public DaoAuthenticationProvider authenticationProvider(UserService userService) {
         DaoAuthenticationProvider auth = new DaoAuthenticationProvider();
@@ -37,7 +35,7 @@ public class SecurityConfig {
                                 .requestMatchers("/user_view").hasRole("USER")
                                 .requestMatchers("/handlingRegestration").permitAll()
                                 .requestMatchers("/css/**", "/images/**").permitAll()
-                                .requestMatchers("/systems/**").hasRole("ADMIN")
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/register/**").permitAll()
                                 .anyRequest().authenticated()
                 )
@@ -51,7 +49,7 @@ public class SecurityConfig {
                 .logout(logout ->
                         logout
                                 .permitAll()
-//                                .logoutSuccessUrl("/login")
+                                .logoutSuccessUrl("/login")
                 )
                 .exceptionHandling(configurer ->
                         configurer.accessDeniedPage("/access-denied")

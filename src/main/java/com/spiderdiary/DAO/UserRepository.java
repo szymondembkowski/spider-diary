@@ -1,8 +1,8 @@
 package com.spiderdiary.DAO;
 
-import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -41,4 +41,14 @@ public class UserRepository {
         entityManager.merge(theUser);
     }
 
+    public List<User> findAll() {
+        TypedQuery<User> theQuery = entityManager.createQuery("from User", User.class);
+        return theQuery.getResultList();
+    }
+
+    public void deleteByUsername(String username) {
+        Query query = entityManager.createQuery("DELETE FROM User u WHERE u.userName = :username");
+        query.setParameter("username", username);
+        query.executeUpdate();
+    }
 }

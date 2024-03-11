@@ -30,6 +30,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 
+    public User() {
+    }
+
+    public User(String username) {
+        this.userName = username;
+    }
+
     // Getters and setters
 
     public String getUserName() {

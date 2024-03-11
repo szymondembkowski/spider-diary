@@ -83,7 +83,6 @@ public class UserController {
         return "user/addSpiderForm";
     }
 
-
     @PostMapping("/saveEditedSpider")
     public String saveEditedSpider(@ModelAttribute("spiderForm") WebSpider webSpider, Model model) {
         System.out.println("Received WebSpider data: " + webSpider);

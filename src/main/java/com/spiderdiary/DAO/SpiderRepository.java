@@ -92,5 +92,4 @@ public class SpiderRepository {
         query.setParameter("user", user);
         return query.getResultList();
     }
-
 }

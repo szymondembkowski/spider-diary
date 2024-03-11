@@ -5,7 +5,6 @@ import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import com.spiderdiary.TempForms.Gender;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

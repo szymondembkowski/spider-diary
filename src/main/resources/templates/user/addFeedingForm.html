@@ -17,9 +17,11 @@
                     <button class="search-icon"><i class="bi bi-search"></i></button>
                 </div>
                 <form th:action="@{/user_view/search}" method="get" class="search-bar">
-                    <button type="submit" name="gender" value="MALE" class="">Male</button>
-                    <button type="submit" name="gender" value="FEMALE" class="">Female</button>
-                    <button type="submit" name="gender" value="NOT_SPECIFIED" class="">Not Specified</button>
+                    <div class="search-bar-gender">
+                        <button type="submit" name="gender" value="MALE" class="gender-btn">Samiec</button>
+                        <button type="submit" name="gender" value="FEMALE" class="gender-btn">Samica</button>
+                        <button type="submit" name="gender" value="NOT_SPECIFIED" class="gender-btn">Nieokreślona</button>
+                    </div>
                 </form>
             </form>
         </div>
@@ -86,13 +88,7 @@
             <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
         </form>
     </div>
-
-
-
-
-
     <div class="side-right"></div>
-
 </div>
 </body>
 </html>

@@ -7,6 +7,7 @@ import com.spiderdiary.Entity.Role;
 import com.spiderdiary.Entity.Spider;
 import com.spiderdiary.Entity.User;
 import com.spiderdiary.TempForms.WebUser;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -75,5 +77,14 @@ public class UserService implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
                 authorities);
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    @Transactional
+    public void deleteUserWithRoles(String username) {
+        userRepository.deleteByUsername(username);
     }
 }

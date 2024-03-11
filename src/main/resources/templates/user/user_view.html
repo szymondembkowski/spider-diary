@@ -17,10 +17,10 @@
                 </div>
                 <form th:action="@{/user_view/search}" method="get" class="search-bar">
                     <div class="search-bar-gender">
-                    <button type="submit" name="gender" value="MALE" class="gender-btn">Samiec</button>
-                    <button type="submit" name="gender" value="FEMALE" class="gender-btn">Samica</button>
-                    <button type="submit" name="gender" value="NOT_SPECIFIED" class="gender-btn">Nieokreślona</button>
-                </div>
+                        <button type="submit" name="gender" value="MALE" class="gender-btn">Samiec</button>
+                        <button type="submit" name="gender" value="FEMALE" class="gender-btn">Samica</button>
+                        <button type="submit" name="gender" value="NOT_SPECIFIED" class="gender-btn">Nieokreślona</button>
+                    </div>
                 </form>
             </form>
         </div>
@@ -31,18 +31,25 @@
     <div class="side-left">
         <div class="side-menu">
             <a th:href="@{/user_view/}" class="menu-item nav-link">Wyświetl pająki</a>
+            <a th:href="@{/user_view/feedings}" class="menu-item">Wyświetl karmienia</a>
+
             <a th:href="@{/user_view/addSpiderForm}" class="menu-item nav-link">Dodaj pająka</a>
             <div class="line"></div>
             <a th:href="@{/user_view/sortedByMoltDate}" class="menu-item nav-link">Wyświetl data</a>
             <a th:href="@{/user_view/sortedByName}" class="menu-item nav-link">Wyświetl rodzaj</a>
+            <div class="line"></div>
 
-            <a th:href="@{/user_view/feedings}" class="menu-item">Wyświetl karmienia</a>
             <a th:href="@{/user_view/editFeedingForm}" class="menu-item">Edytuj karmienia</a>
+            <div class="line"></div>
 
             <a href="#" class="menu-item">przypomnienia</a>
             <a href="#" class="menu-item">Dodaj przypomnienie</a>
             <div class="line"></div>
-            <a href="#" onclick="document.getElementById('logoutForm').submit();" class="menu-item">Wyloguj</a>
+            <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="menu-item">
+                <a th:href="@{/admin_view/users}" class="menu-item">Zarządzaj użytkownikami</a>
+            </div>
+            <div class="line"></div>
+            <a href="#" onclick="document.getElementById('logoutForm').submit();" class="menu-item nav-link">Wyloguj</a>
             <form id="logoutForm" action="#" method="POST" th:action="@{/logout}" style="display: none"></form>
         </div>
     </div>
@@ -76,12 +83,19 @@
                         <input type="hidden" th:name="spiderId" th:value="${spider.id}" />
                         <button type="submit" class="edit-btn">Edytuj</button>
                     </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <div class="side-right"></div>
+    <div class="side-right">
+        <div class="side-menu2">
+            <p>Wymagana karmówka na ten tydzień:
+                <span id="karmowka-liczba" class="karmowka-counter">10</span>
+            </p>
+        </div>
+    </div>
 
     <script>
         document.getElementById("logoutForm").addEventListener("submit", function(event) {

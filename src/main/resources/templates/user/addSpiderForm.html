@@ -17,9 +17,11 @@
                     <button class="search-icon"><i class="bi bi-search"></i></button>
                 </div>
                 <form th:action="@{/user_view/search}" method="get" class="search-bar">
-                    <button type="submit" name="gender" value="MALE" class="">Male</button>
-                    <button type="submit" name="gender" value="FEMALE" class="">Female</button>
-                    <button type="submit" name="gender" value="NOT_SPECIFIED" class="">Not Specified</button>
+                    <div class="search-bar-gender">
+                        <button type="submit" name="gender" value="MALE" class="gender-btn">Samiec</button>
+                        <button type="submit" name="gender" value="FEMALE" class="gender-btn">Samica</button>
+                        <button type="submit" name="gender" value="NOT_SPECIFIED" class="gender-btn">Nieokreślona</button>
+                    </div>
                 </form>
             </form>
         </div>
@@ -27,7 +29,6 @@
 </div>
 
 <div class="container">
-
     <div class="side-left">
         <div class="side-menu">
             <a th:href="@{/user_view/}" class="menu-item nav-link">Wyświetl pająki</a>
@@ -35,9 +36,11 @@
             <div class="line"></div>
             <a th:href="@{/user_view/sortedByMoltDate}" class="menu-item nav-link">Wyświetl data</a>
             <a th:href="@{/user_view/sortedByName}" class="menu-item nav-link">Wyświetl rodzaj</a>
+            <div class="line"></div>
 
             <a th:href="@{/user_view/feedings}" class="menu-item">Wyświetl karmienia</a>
             <a th:href="@{/user_view/editFeedingForm}" class="menu-item">Edytuj karmienia</a>
+            <div class="line"></div>
 
             <a href="#" class="menu-item">przypomnienia</a>
             <a href="#" class="menu-item">Dodaj przypomnienie</a>
@@ -49,48 +52,34 @@
 
     <div class="center">
         <h1>Dodaj pająka</h1>
-        <form th:action="${spiderForm.id != null ? '/user_view/saveEditedSpider' : '/user_view/addSpiderForm'}" method="post" th:object="${spiderForm}">
-
+        <form th:action="${spiderForm.id != null ? '/user_view/saveEditedSpider' : '/user_view/addSpiderForm'}"
+              method="post" th:object="${spiderForm}">
             <input type="hidden" th:field="*{id}" th:value="*{id}" />
-
             <label for="name">Nazwa pająka:</label>
             <input type="text" id="name" name="name" th:field="*{name}" required>
-
             <label for="species">Gatunek:</label>
             <input type="text" id="species" name="species" th:field="*{species}" required>
-
             <label for="latestMolt">Ostatnia wylinka:</label>
             <input type="date" id="latestMolt" name="latestMolt" th:field="*{moltDate}">
-
             <label for="gender">Płeć:</label>
             <select id="gender" name="gender" th:field="*{gender}">
                 <option th:each="enumValue : ${T(com.spiderdiary.TempForms.Gender).values()}"
                         th:value="${enumValue}" th:text="${enumValue.label}"></option>
             </select>
-
             <label for="rozmiar.wylinki">Wylinki:</label>
             <input type="text" id="rozmiar.wylinki" name="rozmiar.wylinki" th:field="*{rozmiar.wylinki}">
-
             <label for="rozmiar.dlugoscCiala">Długość ciała:</label>
             <input type="text" id="rozmiar.dlugoscCiala" name="rozmiar.dlugoscCiala" th:field="*{rozmiar.dlugoscCiala}">
-
-
             <label for="feedingsPerWeek">Feedings Per Week:</label>
-            <input type="number" id="feedingsPerWeek" name="feedings[0].feedingsPerWeek" th:field="*{feedings[0].feedingsPerWeek}" value="${spiderForm.feedings[0].feedingsPerWeek}" required/>
-
-
+            <input type="number" id="feedingsPerWeek" name="feedings[0].feedingsPerWeek" th:field="*{feedings[0].feedingsPerWeek}"
+                   value="${spiderForm.feedings[0].feedingsPerWeek}" required/>
             <label for="foodTypeId">Food Type:</label>
             <select id="foodTypeId" name="foodTypeId" th:field="*{foodTypeId}" required>
                 <option th:each="foodType : ${foodTypes}" th:value="${foodType.id}" th:text="${foodType.foodName}"></option>
             </select>
-
             <button type="submit" th:text="${spiderForm.id != null ? 'Zapisz edycję' : 'Dodaj pająka'}">Zapisz</button>
         </form>
     </div>
-
-
-
-
 
     <div class="side-right"></div>
 

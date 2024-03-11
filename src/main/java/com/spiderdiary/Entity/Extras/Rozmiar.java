@@ -1,6 +1,5 @@
 package com.spiderdiary.Entity.Extras;
 
-import com.spiderdiary.Entity.Spider;
 import jakarta.persistence.*;
 
 import java.util.List;

@@ -54,6 +54,10 @@ body{
     background-color: #4F6F52;
 }
 
+.gender-btn:hover{
+    background-color: #ECE3CE;
+}
+
 
 
 .search-container {
@@ -131,6 +135,14 @@ input:-webkit-autofill:active{
     border: 2px #4F6F52 solid;
 }
 
+.karmowka-counter {
+    padding: 5px 10px;
+    color: white;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+
 .center{
     background-color: #739072;
     width: 100%;
@@ -143,7 +155,7 @@ input:-webkit-autofill:active{
     align-items: center;
     display: flex;
     font-family: 'Poppins', sans-serif;
-    overflow-x: auto; /* Działa na poziomej przewijalności */
+    overflow-x: auto;
 }
 
 .center button {
@@ -249,7 +261,7 @@ table {
 
 /* SIDE-RIGHT */
 
-.side-menu {
+.side-menu, .side-menu2 {
     color: #ECE3CE;
     display: flex;
     flex-direction: column;
@@ -288,4 +300,10 @@ table {
     border-radius: 100px;
     background-color: #739072;
     margin: 10px;
+}
+
+.user-list{
+    padding: 40px;
+    margin: 40px 280px;
+    font-size: 18px;
 }

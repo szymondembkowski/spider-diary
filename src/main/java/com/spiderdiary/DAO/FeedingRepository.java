@@ -1,7 +1,6 @@
 package com.spiderdiary.DAO;
 
 import com.spiderdiary.Entity.Extras.Feeding;
-import com.spiderdiary.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

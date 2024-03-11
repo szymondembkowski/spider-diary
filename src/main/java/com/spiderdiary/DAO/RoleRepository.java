@@ -3,6 +3,7 @@ package com.spiderdiary.DAO;
 import com.spiderdiary.Entity.Role;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,5 +31,16 @@ public class RoleRepository {
         }
 
         return theRole;
+    }
+
+    @Transactional
+    public void deleteRoleById(Long roleId) {
+        Role role = entityManager.find(Role.class, roleId);
+        if (role == null) {
+            throw new RuntimeException("No record found for given role id: " + roleId);
+        }
+        role.getUsers().clear();
+
+        entityManager.remove(role);
     }
 }

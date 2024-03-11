@@ -19,12 +19,13 @@ public class RozmiarRepository {
     private EntityManager entityManager;
 
     public List<Spider> findByGenderAndUserAndDlugoscCialaIsNotNullOrderByDlugoscCialaDesc(Gender gender, User user, Sort sort) {
-        String jpql = "SELECT s FROM Spider s JOIN s.rozmiar r WHERE s.gender = :gender AND s.user = :user AND r.dlugoscCiala IS NOT NULL ORDER BY r.dlugoscCiala DESC";
+        String jpql = "SELECT s FROM Spider s JOIN s.rozmiar r WHERE s.gender = :gender AND s.user = " +
+                ":user AND r.dlugoscCiala IS NOT NULL ORDER BY r.dlugoscCiala DESC";
         TypedQuery<Spider> query = entityManager.createQuery(jpql, Spider.class);
         query.setParameter("gender", gender);
         query.setParameter("user", user);
         query.setFirstResult(0);
-        query.setMaxResults(10);  // Ustaw ilość wyników, jeśli to konieczne
+        query.setMaxResults(10);
         return query.getResultList();
     }
 
@@ -33,7 +34,7 @@ public class RozmiarRepository {
         TypedQuery<Spider> query = entityManager.createQuery(jpql, Spider.class);
         query.setParameter("user", user);
         query.setFirstResult(0);
-        query.setMaxResults(10);  // Ustaw ilość wyników, jeśli to konieczne
+        query.setMaxResults(10);
         return query.getResultList();
     }
 
@@ -45,6 +46,4 @@ public class RozmiarRepository {
             return entityManager.merge(rozmiar);
         }
     }
-
-
 }

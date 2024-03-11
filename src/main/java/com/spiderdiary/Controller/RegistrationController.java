@@ -66,8 +66,6 @@ public class RegistrationController {
         logger.info("Successfully created user: " + userName);
 
         session.setAttribute("user", theWebUser);
-
         return "/registration-confirmation";
     }
-
 }
